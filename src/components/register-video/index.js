@@ -1,6 +1,6 @@
-import React from "react"
-import { StyledRegisterVideo } from "./style"
-
+import React from "react";
+import dbService from "../../service/db-service";
+import { StyledRegisterVideo } from "./style";
 
 function useForm(props) {
 
@@ -20,8 +20,8 @@ function useForm(props) {
             setValues({})
         }
     }
-    
 }
+
 
 export default function RegisterVideo() {
     const [formVisivel, setFormVisivel] = React.useState(false)
@@ -40,9 +40,18 @@ export default function RegisterVideo() {
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            console.log(formCadastro.values);
-                            setFormVisivel(false)
-                            formCadastro.clearForm();
+
+                            dbService.insert({
+                                title: formCadastro.values.titulo,
+                                url: formCadastro.values.url,
+                                thumb: `https://img.youtube.com/vi/${formCadastro.values.url.split("v=")[1]}/hqdefault.jpg`,
+                                playlist: "undefined"
+                            }).then((resultado) => {
+                                console.log(resultado);
+                                // console.log(formCadastro.values);
+                                setFormVisivel(false)
+                                formCadastro.clearForm();
+                            })
                         }}
                     >
                         <div>

@@ -1,19 +1,36 @@
 import React from "react"
-import config from "../config.json"
 import styled from "styled-components"
+import config from "../config.json"
 import Menu from "../src/components/Menu/Menu"
 import { StyledTimeline } from "../src/components/TimeLine"
-
+import dbService from "../src/service/db-service"
 
 function Inicio() {
     const [valorDoFiltro, setValorDoFiltro] = React.useState('')
+    const [playlists, setPlaylists] = React.useState({})
+
+    React.useEffect(() => {
+        dbService.select("*")
+            .then((videos) => {
+                const novasPlaylists = {...playlists}
+                videos.data.forEach((video) => {
+                    if(!novasPlaylists[video.playlist]){
+                        novasPlaylists[video.playlist] = []
+                    }
+                    novasPlaylists[video.playlist].push(video)
+                })
+                setPlaylists(novasPlaylists)
+                console.log('DADOS VINDOS DO SUPABASE:\n', playlists);
+            })
+    }, [])
+
     return (
         <>            <div>
                 {/* porp Drilling */}
                 <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
                 <Banner url={config.banner} />
                 <Header />
-                <TimeLine searchValue={valorDoFiltro} playlists={config.playlists}>
+                <TimeLine searchValue={valorDoFiltro} playlists={playlists}>
                     Conteudo
                 </TimeLine>
 
@@ -98,6 +115,15 @@ function TimeLine({ searchValue, ...props }) {
                             {videos
                                 .filter((video) => video.title.toLowerCase().includes(searchValue.toLowerCase()))
                                 .map((video) => {
+                                    /**Cadastrar vídeos do config.json */
+                                    // supabase.from("Video").insert({
+                                    //     title: video.title,
+                                    //     url: video.url,
+                                    //     thumb: `https://img.youtube.com/vi/${video.url.split("v=")[1]}/hqdefault.jpg`,
+                                    //     playlist: playlistName
+                                    // }).then((resultado) => {
+                                    //     console.log(resultado);
+                                    // })
                                     return (
                                         <a key={video.url} href={video.url}>
                                             <img src={video.thumb} />
