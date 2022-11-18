@@ -14,7 +14,6 @@ function useForm(props) {
             const value = e.target.value;
             const name = e.target.name
             setValues({ ...values, [name]: value })
-
         },
         clearForm(){
             setValues({})
@@ -26,7 +25,7 @@ function useForm(props) {
 export default function RegisterVideo() {
     const [formVisivel, setFormVisivel] = React.useState(false)
     const formCadastro = useForm({
-        initialValues: { titulo: "", url: "" }
+        initialValues: { titulo: "", url: "", playlist: ""}
     })
 
     return (
@@ -45,7 +44,7 @@ export default function RegisterVideo() {
                                 title: formCadastro.values.titulo,
                                 url: formCadastro.values.url,
                                 thumb: `https://img.youtube.com/vi/${formCadastro.values.url.split("v=")[1]}/hqdefault.jpg`,
-                                playlist: "undefined"
+                                playlist: formCadastro.values.playlist
                             }).then((resultado) => {
                                 console.log(resultado);
                                 // console.log(formCadastro.values);
@@ -67,6 +66,11 @@ export default function RegisterVideo() {
                             <input
                                 placeholder="URL" name="url"
                                 value={formCadastro.values.url}
+                                onChange={formCadastro.handleChange} />
+
+                            <input
+                                placeholder="Playlist" name="playlist"
+                                value={formCadastro.values.playlist}
                                 onChange={formCadastro.handleChange} />
 
                             <button type="submit">

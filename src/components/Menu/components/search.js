@@ -9,6 +9,7 @@ const StyledSearch = styled.div`
   width: 100%;
   border-radius: 2px;
   overflow: hidden;
+  border-radius: 20px;
   
   input {
     width: 80%;
@@ -16,6 +17,7 @@ const StyledSearch = styled.div`
     border: none;
     outline: none;
     color: ${({ theme }) => theme.textColorBase};
+    padding-left: 20px;
     background-color: ${({ theme }) => theme.backgroundBase};
   }
   button {

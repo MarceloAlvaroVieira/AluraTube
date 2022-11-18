@@ -12,9 +12,9 @@ function Inicio() {
     React.useEffect(() => {
         dbService.select("*")
             .then((videos) => {
-                const novasPlaylists = {...playlists}
+                const novasPlaylists = { ...playlists }
                 videos.data.forEach((video) => {
-                    if(!novasPlaylists[video.playlist]){
+                    if (!novasPlaylists[video.playlist]) {
                         novasPlaylists[video.playlist] = []
                     }
                     novasPlaylists[video.playlist].push(video)
@@ -26,15 +26,15 @@ function Inicio() {
 
     return (
         <>            <div>
-                {/* porp Drilling */}
-                <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
-                <Banner url={config.banner} />
-                <Header />
-                <TimeLine searchValue={valorDoFiltro} playlists={playlists}>
-                    Conteudo
-                </TimeLine>
+            {/* porp Drilling */}
+            <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
+            <Banner url={config.banner} />
+            <Header />
+            <TimeLine searchValue={valorDoFiltro} playlists={playlists}>
+                Conteudo
+            </TimeLine>
 
-            </div>
+        </div>
         </>
     )
 }
@@ -105,39 +105,49 @@ function Header() {
 function TimeLine({ searchValue, ...props }) {
     const playlistNames = Object.keys(props.playlists);
     return (
-        <StyledTimeline>
-            {playlistNames.map((playlistName) => {
-                const videos = props.playlists[playlistName]
-                return (
-                    <section key={playlistName}>
-                        <h2>{playlistName}</h2>
-                        <div>
-                            {videos
-                                .filter((video) => video.title.toLowerCase().includes(searchValue.toLowerCase()))
-                                .map((video) => {
-                                    /**Cadastrar vídeos do config.json */
-                                    // supabase.from("Video").insert({
-                                    //     title: video.title,
-                                    //     url: video.url,
-                                    //     thumb: `https://img.youtube.com/vi/${video.url.split("v=")[1]}/hqdefault.jpg`,
-                                    //     playlist: playlistName
-                                    // }).then((resultado) => {
-                                    //     console.log(resultado);
-                                    // })
-                                    return (
-                                        <a key={video.url} href={video.url}>
-                                            <img src={video.thumb} />
-                                            <span>
-                                                {video.title}
-                                            </span>
-                                        </a>
-                                    )
-                                })}
-                        </div>
-                    </section>
-                )
-            })}
-        </StyledTimeline>
+        <>
+            {/**Cadastrar vídeos do config.json */}
+            {/* <button type="button" onClick={() => {
+                const nomes = Object.keys(config.playlists)
+                nomes.map((nome) => {
+                    const lista = config.playlists[nome]
+                    lista.map((video) =>
+                        dbService.insert({
+                            title: video.title,
+                            url: video.url,
+                            thumb: `https://img.youtube.com/vi/${video.url.split("v=")[1]}/hqdefault.jpg`,
+                            playlist: nome
+                        }).then((resultado) => {
+                            console.log(resultado);
+                        })
+                    )
+                })
+            }}>Cadastrar</button> */}
+            <StyledTimeline>
+                {playlistNames.map((playlistName) => {
+                    const videos = props.playlists[playlistName]
+                    return (
+                        <section key={playlistName}>
+                            <h2>{playlistName}</h2>
+                            <div>
+                                {videos
+                                    .filter((video) => video.title.toLowerCase().includes(searchValue.toLowerCase()))
+                                    .map((video) => {
+                                        return (
+                                            <a key={video.url} href={video.url}>
+                                                <img src={video.thumb} />
+                                                <span>
+                                                    {video.title}
+                                                </span>
+                                            </a>
+                                        )
+                                    })}
+                            </div>
+                        </section>
+                    )
+                })}
+            </StyledTimeline>
+        </>
     )
 }
 
