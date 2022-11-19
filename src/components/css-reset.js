@@ -8,7 +8,7 @@ export const CSSReset = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    transition: .25s ease-in-out;
+    transition: .3s ease-in-out;
     font-family: sans-serif;
   }
   /* NextJS */
@@ -20,7 +20,7 @@ export const CSSReset = createGlobalStyle`
   }
 
   body header{
-    transition: .25s ease-in-out;
+    transition: .35s ease-in-out;
   }
   
   body {
