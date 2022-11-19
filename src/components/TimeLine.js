@@ -16,7 +16,7 @@ export const StyledTimeline = styled.div`
     font-weight: 500;
     object-fit: cover;
     width: 100%;
-    max-width: 210px;
+    max-width: 2700px;
     height: auto;
     border-radius: 8px;
   }
@@ -25,6 +25,7 @@ export const StyledTimeline = styled.div`
     padding: 0;
     overflow: hidden;
     padding: 16px;
+
     div {
       
       width: calc(100vw - 16px * 4);
@@ -43,6 +44,10 @@ export const StyledTimeline = styled.div`
           padding-right: 24px;
           color: ${({ theme }) => theme.textColorBase || "#222222"};
         }
+      }
+      @media (max-width: 500px){
+        grid-template-columns: repeat(auto-fill,minmax(100%,1fr)); 
+        grid-auto-columns: minmax(100%,1fr);
       }
     }
 
