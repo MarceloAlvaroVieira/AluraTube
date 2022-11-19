@@ -8,6 +8,7 @@ export const CSSReset = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
+    transition: .25s ease-in-out;
     font-family: sans-serif;
   }
   /* NextJS */
@@ -15,13 +16,21 @@ export const CSSReset = createGlobalStyle`
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    overflow-x: hidden;
   }
+
+  body header{
+    transition: .25s ease-in-out;
+  }
+  
   body {
     display: flex;
     flex: 1;
     background-color: ${({theme}) => theme.backgroundBase};
+    transition: .3s ease-in-out;
     color: ${({theme}) => theme.textColorBase};
   }
+
   #__next {
     display: flex;
     flex: 1;

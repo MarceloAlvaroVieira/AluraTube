@@ -5,6 +5,7 @@ export const StyledTimeline = styled.div`
   width: 100%;
   padding: 16px;
   overflow: hidden;
+
   h2 {
     font-size: 16px;
     margin-bottom: 16px;
@@ -32,7 +33,7 @@ export const StyledTimeline = styled.div`
       grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
       grid-auto-flow: column;
       grid-auto-columns: minmax(200px,1fr);
-      overflow-x: scroll;
+      overflow-x: auto;
       scroll-snap-type: x mandatory;
       a {
         scroll-snap-align: start;
@@ -43,6 +44,15 @@ export const StyledTimeline = styled.div`
           color: ${({ theme }) => theme.textColorBase || "#222222"};
         }
       }
+    }
+
+    div::-webkit-scrollbar {
+      height: 3px;
+      background-color: ${"#03070307"};
+    }
+    div::-webkit-scrollbar-thumb {
+      background-color: ${"#e5e5e5"};
+      border-radius: 1.5px;
     }
   }
 `;

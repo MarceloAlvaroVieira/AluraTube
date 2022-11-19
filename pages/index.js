@@ -39,12 +39,6 @@ function Inicio() {
     )
 }
 
-// function Menu() {
-//     return (
-//         <div>Menu</div>
-//     )
-// }
-
 const StyledBanner = styled.div`    
     img {
         height: 300px; 
@@ -63,10 +57,10 @@ function Banner(props) {
 const StyledHeader = styled.div`
 
     background-color: ${({ theme }) => theme.backgroundLevel1};
-
     padding-left: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
+    
     img {
         width: 80px;
         height: 80px;
@@ -87,8 +81,8 @@ function Header() {
             {/* <img src={`banner`} /> */}
 
             <section className="config">
-                <img src={`http://github.com/${config.github}.png`} />
                 <div>
+                    <img src={`http://github.com/${config.github}.png`} />
                     <h2>
                         {config.nome}
                     </h2>
@@ -106,8 +100,8 @@ function TimeLine({ searchValue, ...props }) {
     const playlistNames = Object.keys(props.playlists);
     return (
         <>
-            {/**Cadastrar vídeos do config.json */}
-            {/* <button type="button" onClick={() => {
+            {/**Cadastrar vídeos do config.json */
+            /* <button type="button" onClick={() => {
                 const nomes = Object.keys(config.playlists)
                 nomes.map((nome) => {
                     const lista = config.playlists[nome]
@@ -134,7 +128,7 @@ function TimeLine({ searchValue, ...props }) {
                                     .filter((video) => video.title.toLowerCase().includes(searchValue.toLowerCase()))
                                     .map((video) => {
                                         return (
-                                            <a key={video.url} href={video.url}>
+                                            <a key={video.url} href={`https://www.youtube.com/embed/${video.url.split("v=")[1]}?autoplay=1`}>
                                                 <img src={video.thumb} />
                                                 <span>
                                                     {video.title}
